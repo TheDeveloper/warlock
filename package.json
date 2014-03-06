@@ -27,6 +27,6 @@
     "redis": "^0.10.1"
   },
   "dependencies": {
-    "node-redis-scripty": "0.0.0"
+    "node-redis-scripty": "0.0.1"
   }
 }
