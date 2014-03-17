@@ -3,7 +3,7 @@ warlock
 
 Battle-hardened distributed locking using redis.
 
-# Usage
+## Usage
 
 ```javascript
 
@@ -15,7 +15,6 @@ var redis = redis.createClient();
 var warlock = Warlock(redis);
 
 // Set a lock
-
 var key = 'test-lock';
 var ttl = 10000;
 
