@@ -3,6 +3,10 @@ warlock
 
 Battle-hardened distributed locking using redis.
 
+## Install
+
+    npm install node-redis-warlock
+
 ## Usage
 
 ```javascript
