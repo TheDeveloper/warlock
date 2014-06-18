@@ -7,6 +7,8 @@ Battle-hardened distributed locking using redis.
 
     npm install node-redis-warlock
 
+You will also need [node-redis](https://github.com/mranney/node_redis) compatible with `v0.10`.
+
 ## Usage
 
 ```javascript
