@@ -3,11 +3,14 @@ warlock
 
 Battle-hardened distributed locking using redis.
 
+## Requirements
+
+* [node-redis](https://github.com/mranney/node_redis) compatible with `v0.10`
+* Redis `v2.6` or above
+
 ## Install
 
     npm install node-redis-warlock
-
-You will also need [node-redis](https://github.com/mranney/node_redis) compatible with `v0.10`.
 
 ## Usage
 
