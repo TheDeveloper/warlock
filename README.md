@@ -47,3 +47,8 @@ warlock.lock(key, ttl, function(err, unlock){
 });
 
 ```
+
+## ProTips
+
+* Warlock uses Lua scripting to achieve transactional locking on Redis `v2.6.0` upwards. If you're running Redis `v2.6.12` or above you could use the additional PX and NX arguments for the [SET](http://redis.io/commands/set) operation as an alternative.
+* Read my [Distributed locks using Redis](https://engineering.gosquared.com/distributed-locks-using-redis) article and Redis' author's [A proposal for more reliable locks using Redis](http://antirez.com/news/77) to learn more about the theory of distributed locks using Redis.
