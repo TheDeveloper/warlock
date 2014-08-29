@@ -6,7 +6,7 @@ Battle-hardened distributed locking using redis.
 ## Requirements
 
 * [node-redis](https://github.com/mranney/node_redis) compatible with `v0.10`
-* Redis `v2.6` or above
+* Redis `v2.6.12` or above. If you're running a Redis version from `v2.6.0` to `v2.6.11` inclusive use `v0.0.7` of this module.
 
 ## Install
 
@@ -25,7 +25,7 @@ var warlock = Warlock(redis);
 
 // Set a lock
 var key = 'test-lock';
-var ttl = 10000;
+var ttl = 10000; // Lifetime of the lock
 
 warlock.lock(key, ttl, function(err, unlock){
   if (err) {
@@ -46,9 +46,15 @@ warlock.lock(key, ttl, function(err, unlock){
   }
 });
 
+// set a lock optimistically
+var key = 'opt-lock';
+var ttl = 10000;
+var maxAttempts = 4; // Max number of times to try setting the lock before erroring
+var wait = 1000; // Time to wait before another attempt if lock already in place
+warlock.optimistic(key, ttl, maxAttempts, wait, function(err, unlock) {});
+
 ```
 
 ## ProTips
 
-* Warlock uses Lua scripting to achieve transactional locking on Redis `v2.6.0` upwards. If you're running Redis `v2.6.12` or above you could use the additional PX and NX arguments for the [SET](http://redis.io/commands/set) operation as an alternative.
 * Read my [Distributed locks using Redis](https://engineering.gosquared.com/distributed-locks-using-redis) article and Redis' author's [A proposal for more reliable locks using Redis](http://antirez.com/news/77) to learn more about the theory of distributed locks using Redis.
