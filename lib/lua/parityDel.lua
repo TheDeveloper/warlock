@@ -10,6 +10,6 @@ local value = redis.call('get', key)
 
 if value == content then
   return redis.call('del', key);
+else
+  return false
 end
-
-return 0

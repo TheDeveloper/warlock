@@ -1,14 +1,14 @@
 {
   "name": "node-redis-warlock",
   "version": "0.1.1",
-  "description": "Battle-hardened distributed locking using redis",
+  "description": "Battle-hardened distributed locking using redis with relocking",
   "main": "lib/warlock.js",
   "scripts": {
     "test": "make test"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/thedeveloper/warlock"
+    "url": "https://github.com/macdab/warlock"
   },
   "keywords": [
     "node.js",
@@ -18,9 +18,9 @@
   "author": "Geoff Wagstaff",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/thedeveloper/warlock/issues"
+    "url": "https://github.com/macdab/warlock/issues"
   },
-  "homepage": "https://github.com/thedeveloper/warlock",
+  "homepage": "https://github.com/macdab/warlock",
   "dependencies": {
     "node-redis-scripty": "~0.0.4",
     "uuid": "^1.4.1"
