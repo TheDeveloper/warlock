@@ -4,7 +4,7 @@
 -- KEYS[1]   - key
 -- KEYS[2]   - content
 local key     = KEYS[1]
-local content = KEYS[2]
+local content = ARGV[1]
 
 local value = redis.call('get', key)
 
