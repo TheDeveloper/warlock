@@ -1,6 +1,10 @@
 Changelog
 ---
 
+# v0.1.3
+
+* Allow proper use of Warlock with different redis clients.
+
 # v0.1.2
 
 * Update [`uuid`](https://www.npmjs.org/package/uuid) dependency to v2.0.1.
