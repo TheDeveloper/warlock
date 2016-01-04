@@ -57,6 +57,22 @@ var maxAttempts = 4; // Max number of times to try setting the lock before error
 var wait = 1000; // Time to wait before another attempt if lock already in place
 warlock.optimistic(key, ttl, maxAttempts, wait, function(err, unlock) {});
 
+// unlock using the lock id
+var key = 'test-lock-2';
+var ttl = 10000;
+var lockId;
+
+warlock.lock(key, ttl, function(err, _, id) {
+  lockId = id;
+});
+
+// each client who knows the lockId can release the lock
+warlock.unlock(key, lockId, function(err, result) {
+  if(result == 1) {
+    // unlocked successfully
+  }
+});
+
 ```
 
 ## ProTips
