@@ -44,3 +44,32 @@ describe('locking', function() {
     });
   });
 });
+
+describe('unlocking with id', function() {
+  var lockId;
+
+  it('sets lock and gets lock id', function(done) {
+    warlock.lock('customlock', 20000, function(err, unlock, id) {
+      should.not.exists(err);
+      id.should.type("string");
+      lockId = id;
+      done();
+    });
+  });
+
+  it('does not unlock with wrong id', function(done) {
+    warlock.unlock('customlock', "wrongid", function(err, result) {
+      should.not.exists(err);
+      result.should.equal(0);
+      done();
+    });
+  });
+
+  it('unlocks', function(done) {
+    warlock.unlock('customlock', lockId, function(err, result) {
+      should.not.exists(err);
+      result.should.equal(1);
+      done();
+    });
+  });
+});
