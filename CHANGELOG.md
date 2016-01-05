@@ -1,6 +1,10 @@
 Changelog
 ---
 
+# v0.2.0
+
+* Merge [#15](thedeveloper/warlock#15): Pass lock id to `.lock` callback.
+
 # v0.1.3
 
 * Allow proper use of Warlock with different redis clients.
