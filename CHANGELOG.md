@@ -3,7 +3,7 @@ Changelog
 
 # v0.2.0
 
-* Merge [#15](thedeveloper/warlock#15): Pass lock id to `.lock` callback.
+* Merge [#18](https://github.com/TheDeveloper/warlock/pull/18): Pass lock id to `.lock` callback.
 
 # v0.1.3
 
