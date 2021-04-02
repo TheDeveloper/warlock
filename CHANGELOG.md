@@ -1,5 +1,14 @@
-Changelog
----
+# [1.0.0](https://github.com/TheDeveloper/warlock/compare/v0.2.0...v1.0.0) (2021-04-02)
+
+**This is a major release and contain breaking changes. Please read this changelog before upgrading.**
+
+### BREAKING CHANGES
+
+* Drop support for node 6.
+
+### Bug Fixes
+* Switch deprecated [node-redis-scripty](https://github.com/TheDeveloper/scripty) to [node-redis-script](https://github.com/TheDeveloper/node-redis-script).
+* Updated deps.
 
 # v0.2.0
 
