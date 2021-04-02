@@ -1,7 +1,9 @@
 var should  = require('should');
-var redis = require('./setup/redisConnection');
+
+var Redis = require('redis');
+var redis = Redis.createClient({ port: 6386 });
+
 var warlock = require('../lib/warlock')(redis);
-require('./setup/redisFlush');
 
 describe('locking', function() {
   it('sets lock', function (done) {
