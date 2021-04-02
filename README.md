@@ -19,19 +19,18 @@ Battle-hardened distributed locking using redis.
 ## Usage
 
 ```javascript
-
-var Warlock = require('node-redis-warlock');
-var redis = require('redis');
+const Warlock = require('node-redis-warlock');
+const Redis = require('redis');
 
 // Establish a redis client and pass it to warlock
-var redis = redis.createClient();
-var warlock = Warlock(redis);
+const redis = Redis.createClient();
+const warlock = Warlock(redis);
 
 // Set a lock
-var key = 'test-lock';
-var ttl = 10000; // Lifetime of the lock
+const key = 'test-lock';
+const ttl = 10000; // Lifetime of the lock
 
-warlock.lock(key, ttl, function(err, unlock){
+warlock.lock(key, ttl, (err, unlock) => {
   if (err) {
     // Something went wrong and we weren't able to set a lock
     return;
@@ -51,28 +50,27 @@ warlock.lock(key, ttl, function(err, unlock){
 });
 
 // set a lock optimistically
-var key = 'opt-lock';
-var ttl = 10000;
-var maxAttempts = 4; // Max number of times to try setting the lock before erroring
-var wait = 1000; // Time to wait before another attempt if lock already in place
-warlock.optimistic(key, ttl, maxAttempts, wait, function(err, unlock) {});
+const key = 'opt-lock';
+const ttl = 10000;
+const maxAttempts = 4; // Max number of times to try setting the lock before erroring
+const wait = 1000; // Time to wait before another attempt if lock already in place
+warlock.optimistic(key, ttl, maxAttempts, wait, (err, unlock) => {});
 
 // unlock using the lock id
 var key = 'test-lock-2';
 var ttl = 10000;
-var lockId;
+let lockId;
 
-warlock.lock(key, ttl, function(err, _, id) {
+warlock.lock(key, ttl, (err, _, id) => {
   lockId = id;
 });
 
 // each client who knows the lockId can release the lock
-warlock.unlock(key, lockId, function(err, result) {
-  if(result == 1) {
+warlock.unlock(key, lockId, (err, result) => {
+  if (result == 1) {
     // unlocked successfully
   }
 });
-
 ```
 
 ## ProTips
