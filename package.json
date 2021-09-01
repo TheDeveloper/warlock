@@ -26,14 +26,17 @@
   },
   "homepage": "https://github.com/thedeveloper/warlock",
   "dependencies": {
+    "async-redis": "^2.0.0",
     "node-redis-script": "^2.0.1",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/node": "^16.7.10",
-    "eslint": "^7.23.0",
+    "@types/redis": "^2.8.31",
+    "@types/uuid": "^8.3.1",
+    "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-import": "^2.24.2",
     "mocha": "^8.3.2",
     "redis": "^3.1.0",
     "should": "^13.2.3",
