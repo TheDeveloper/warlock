@@ -1,8 +1,6 @@
 warlock
 =======
 
-[![Travis](https://travis-ci.org/TheDeveloper/warlock.svg?branch=master)](https://travis-ci.org/TheDeveloper/warlock)
-[![Dependency Status](https://david-dm.org/thedeveloper/warlock.svg)](https://david-dm.org/thedeveloper/warlock)
 [![Join the chat at https://gitter.im/TheDeveloper/warlock](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/TheDeveloper/warlock?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 Battle-hardened distributed locking using redis.
@@ -19,19 +17,18 @@ Battle-hardened distributed locking using redis.
 ## Usage
 
 ```javascript
-
-var Warlock = require('node-redis-warlock');
-var redis = require('redis');
+const Warlock = require('node-redis-warlock');
+const Redis = require('redis');
 
 // Establish a redis client and pass it to warlock
-var redis = redis.createClient();
-var warlock = Warlock(redis);
+const redis = Redis.createClient();
+const warlock = Warlock(redis);
 
 // Set a lock
-var key = 'test-lock';
-var ttl = 10000; // Lifetime of the lock
+const key = 'test-lock';
+const ttl = 10000; // Lifetime of the lock
 
-warlock.lock(key, ttl, function(err, unlock){
+warlock.lock(key, ttl, (err, unlock) => {
   if (err) {
     // Something went wrong and we weren't able to set a lock
     return;
@@ -51,12 +48,36 @@ warlock.lock(key, ttl, function(err, unlock){
 });
 
 // set a lock optimistically
-var key = 'opt-lock';
-var ttl = 10000;
-var maxAttempts = 4; // Max number of times to try setting the lock before erroring
-var wait = 1000; // Time to wait before another attempt if lock already in place
-warlock.optimistic(key, ttl, maxAttempts, wait, function(err, unlock) {});
+const key = 'opt-lock';
+const ttl = 10000;
+const maxAttempts = 4; // Max number of times to try setting the lock before erroring
+const wait = 1000; // Time to wait before another attempt if lock already in place
+warlock.optimistic(key, ttl, maxAttempts, wait, (err, unlock) => {});
 
+// unlock using the lock id
+var key = 'test-lock-2';
+var ttl = 10000;
+let lockId;
+
+warlock.lock(key, ttl, (err, _, id) => {
+  lockId = id;
+});
+
+// each client who knows the lockId can release the lock
+warlock.unlock(key, lockId, (err, result) => {
+  if (result == 1) {
+    // unlocked successfully
+  }
+});
+
+// change a lock's ttl
+var key = 'touch-lock';
+var ttl = 10000;
+var ttl2 = 20000;
+
+warlock.lock(key, ttl, function(err, unlock, id) {
+  warlock.touch(key, id, ttl2, function(err) {});
+});
 ```
 
 ## ProTips
