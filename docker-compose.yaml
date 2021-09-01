@@ -1,0 +1,13 @@
+redis:
+  image: redis:3.2-alpine
+  ports:
+    - 6386:6379
+  container_name: warlock-redis
+
+monitor:
+  image: redis:3.2-alpine
+  links:
+    - redis
+  entrypoint: "/bin/sh"
+  command: >
+    "-c" "redis-cli -h warlock-redis -p 6379 monitor"
