@@ -2,7 +2,7 @@
 -- Delete a key if content is equal
 --
 -- KEYS[1]   - key
--- KEYS[2]   - content
+-- ARGV[1]   - content
 local key     = KEYS[1]
 local content = ARGV[1]
 
