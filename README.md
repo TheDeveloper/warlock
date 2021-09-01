@@ -69,6 +69,15 @@ warlock.unlock(key, lockId, (err, result) => {
     // unlocked successfully
   }
 });
+
+// change a lock's ttl
+var key = 'touch-lock';
+var ttl = 10000;
+var ttl2 = 20000;
+
+warlock.lock(key, ttl, function(err, unlock, id) {
+  warlock.touch(key, id, ttl2, function(err) {});
+});
 ```
 
 ## ProTips
