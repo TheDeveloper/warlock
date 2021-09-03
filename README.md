@@ -17,6 +17,12 @@ Battle-hardened distributed locking using redis.
 ## Usage
 
 ```js
+const { createClient } = require('redis');
+const redis = createClient();
+
+const opts = { redis };
+const warlock = new Warlock(opts);
+
 const unlock = await warlock.lock(key, ttl);
 await unlock();
 ```
