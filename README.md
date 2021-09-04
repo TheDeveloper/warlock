@@ -94,3 +94,12 @@ warlock.lock(key, ttl, function(err, unlock, id) {
 ## ProTips
 
 * Read my [Distributed locks using Redis](https://engineering.gosquared.com/distributed-locks-using-redis) article and Redis' author's [A proposal for more reliable locks using Redis](http://antirez.com/news/77) to learn more about the theory of distributed locks using Redis.
+
+
+# Test
+```bash
+npm run start-redis
+npm run watch
+npx mocha --exit dist/test/warlock
+npm run cleanup
+```
