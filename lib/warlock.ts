@@ -55,7 +55,7 @@ class Warlock {
     return false;
   }
 
-  async unlock(key: string, id: string) {
+  async unlock(key: string, id: string): Promise<0|1> {
     const numKeys = 1;
     const _key = `${key}:lock`;
     const result = await this.parityDel(numKeys, _key, id);
