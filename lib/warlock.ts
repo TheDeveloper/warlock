@@ -28,7 +28,7 @@ function wait(ms: number) {
 interface WarlockOpts {
   redis?: RedisClient
 }
-class Warlock {
+export class Warlock {
   redis: RedisClient
   parityDel: any;
 
