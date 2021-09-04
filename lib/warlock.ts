@@ -6,12 +6,24 @@ import { createScript } from 'node-redis-script';
 import { readFileSync } from 'fs';
 import { resolve as resolvePath } from 'path';
 
-const path = resolvePath(__dirname, './lua/parityDel.lua');
-const parityDelSrc = readFileSync(path, 'utf8');
-
 function createParityDel(redis: RedisClient) {
+  const path = resolvePath(__dirname, '../../lib/lua/parityDel.lua');
+  const parityDelSrc = readFileSync(path, 'utf8');
   const opts = { redis };
   return createScript(opts, parityDelSrc);
+}
+
+function createParityRelock(redis: RedisClient) {
+  const path = resolvePath(__dirname, '../../lib/lua/parityRelock.lua');
+  const parityRelockSrc = readFileSync(path, 'utf8');
+  const opts = { redis };
+  return createScript(opts, parityRelockSrc);
+}
+
+function wait(ms: number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, ms);
+  });
 }
 interface WarlockOpts {
   redis?: RedisClient
@@ -47,6 +59,30 @@ class Warlock {
     const numKeys = 1;
     const _key = `${key}:lock`;
     const result = await this.parityDel(numKeys, _key, id);
+    return result;
+  }
+
+  async optimistic(
+    key: string,
+    ttlMs: number,
+    maxAttempts: number,
+    waitMs: number
+  ) {
+    let attempts = 0;
+    let unlock;
+
+    while (!unlock && attempts < maxAttempts) {
+      if (attempts > 0) await wait(waitMs);
+      unlock = await this.lock(key, ttlMs);
+      attempts += 1;
+    }
+
+    return unlock;
+  }
+
+  async touch(key: string, id: string, ttlMs: number) {
+    const _key = `${key}:lock`;
+    const result = await this.parityRelock(1, _key, ttlMs, id);
     return result;
   }
 }
