@@ -1,13 +1,9 @@
 --
 -- Extend the key if content is equal
--- This will extend the lock on the
 --
--- KEYS[1]   - key
--- KEYS[2]   - content
--- KEYS[3]   - lock id
 local key = KEYS[1]
-local ttl = KEYS[2]
-local id  = KEYS[3]
+local ttl = ARGV[1]
+local id  = ARGV[2]
 
 local value = redis.call('GET', key)
 
