@@ -47,9 +47,7 @@ class Warlock {
     const _key = `${key}:lock`;
     const result = await this.redis.set(_key, id, 'PX', ttlMs, 'NX');
     if (result) {
-      const unlock = async () => {
-        await this.unlock(key, id);
-      }
+      const unlock = () => this.unlock(key, id);
       return unlock;
     }
     return false;
