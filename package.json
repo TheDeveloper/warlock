@@ -8,7 +8,9 @@
     "posttest": "npm run cleanup",
     "start-redis": "docker-compose up -d redis",
     "test": "mocha --exit ./test/warlock",
-    "cleanup": "docker-compose stop && docker-compose rm -f"
+    "cleanup": "docker-compose stop && docker-compose rm -f",
+    "build": "rm -rf dist && tsc || exit 0",
+    "watch": "rm -rf dist && tsc -w"
   },
   "repository": {
     "type": "git",
