@@ -2,6 +2,7 @@ import { RedisClient } from "redis";
 import * as uuid from "uuid";
 import AsyncRedis from 'async-redis';
 import { createScript } from 'node-redis-script';
+import Redis from 'redis';
 
 import { readFileSync } from 'fs';
 import { resolve as resolvePath } from 'path';
@@ -31,15 +32,16 @@ interface WarlockOpts {
 export class Warlock {
   redis: RedisClient
   parityDel: any;
+  parityRelock: any;
 
   constructor(opts: WarlockOpts = {}) {
-    if (opts.redis) {
-      this.redis = AsyncRedis.decorate(opts.redis);
-    } else {
-      this.redis = AsyncRedis.createClient();
-    }
+    let redis = opts.redis;
+    if (!redis) redis = Redis.createClient();
 
-    this.parityDel = createParityDel(this.redis);
+    this.parityDel = createParityDel(redis);
+    this.parityRelock = createParityRelock(redis);
+
+    this.redis = AsyncRedis.decorate(redis);
   }
 
   async lock(key: string, ttlMs: number) {
