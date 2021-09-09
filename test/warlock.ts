@@ -39,34 +39,16 @@ describe('locking', () => {
   });
 });
 
-describe.skip('unlocking with id', () => {
-  let lockId;
-
-  it('sets lock and gets lock id', (done) => {
-    warlock.lock('customlock', 20000, (err, unlock, id) => {
-      should.not.exists(err);
-      id.should.type('string');
-      lockId = id;
-      done();
-    });
+describe('unlocking with incorrect id', () => {
+  it('denies unlock', async () => {
+    const ttlMs = 10000;
+    const key = 'unlockTest';
+    await warlock.lock(key, ttlMs);
+    const id = 'test123';
+    const result = await warlock.unlock(key, id);
+    result.should.equal(0);
   });
-
-  it('does not unlock with wrong id', (done) => {
-    warlock.unlock('customlock', 'wrongid', (err, result) => {
-      should.not.exists(err);
-      result.should.equal(0);
-      done();
-    });
-  });
-
-  it('unlocks', (done) => {
-    warlock.unlock('customlock', lockId, (err, result) => {
-      should.not.exists(err);
-      result.should.equal(1);
-      done();
-    });
-  });
-});
+})
 
 describe.skip('touching a lock', () => {
   const key = 'touchlock';
