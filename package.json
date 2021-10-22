@@ -8,7 +8,9 @@
     "posttest": "npm run cleanup",
     "start-redis": "docker-compose up -d redis",
     "test": "mocha --exit ./test/warlock",
-    "cleanup": "docker-compose stop && docker-compose rm -f"
+    "cleanup": "docker-compose stop && docker-compose rm -f",
+    "build": "rm -rf dist && tsc || exit 0",
+    "watch": "rm -rf dist && tsc -w"
   },
   "repository": {
     "type": "git",
@@ -26,15 +28,21 @@
   },
   "homepage": "https://github.com/thedeveloper/warlock",
   "dependencies": {
+    "async-redis": "^2.0.0",
     "node-redis-script": "^2.0.1",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
-    "eslint": "^7.23.0",
+    "@types/mocha": "^9.0.0",
+    "@types/node": "^16.7.10",
+    "@types/redis": "^2.8.31",
+    "@types/uuid": "^8.3.1",
+    "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-import": "^2.24.2",
     "mocha": "^8.3.2",
     "redis": "^3.1.0",
-    "should": "^13.2.3"
+    "should": "^13.2.3",
+    "typescript": "^4.4.2"
   }
 }

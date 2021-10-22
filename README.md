@@ -16,6 +16,17 @@ Battle-hardened distributed locking using redis.
 
 ## Usage
 
+```js
+const { createClient } = require('redis');
+const redis = createClient();
+
+const opts = { redis };
+const warlock = new Warlock(opts);
+
+const unlock = await warlock.lock(key, ttl);
+await unlock();
+```
+
 ```javascript
 const Warlock = require('node-redis-warlock');
 const Redis = require('redis');
@@ -83,3 +94,12 @@ warlock.lock(key, ttl, function(err, unlock, id) {
 ## ProTips
 
 * Read my [Distributed locks using Redis](https://engineering.gosquared.com/distributed-locks-using-redis) article and Redis' author's [A proposal for more reliable locks using Redis](http://antirez.com/news/77) to learn more about the theory of distributed locks using Redis.
+
+
+# Test
+```bash
+npm run start-redis
+npm run watch
+npx mocha --exit dist/test/warlock
+npm run cleanup
+```
