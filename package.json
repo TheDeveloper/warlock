@@ -1,6 +1,6 @@
 {
   "name": "node-redis-warlock",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Battle-hardened distributed locking using redis",
   "main": "lib/warlock.js",
   "scripts": {
